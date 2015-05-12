@@ -45,13 +45,19 @@ class ImdbInfo(object):
     title_no_spaces = re.sub(" ", "+", self.title())
 
     # Issue url request of google query for the movie title trailer
-    request = requests.get('https://www.google.com/search?q=%s+trailer' % title_no_spaces)
+    request = requests.get(
+        'https://www.google.com/search?q=%s+trailer' % title_no_spaces
+        )
 
     # Parse the output from the google search looking for the youtube url
     # The response from the google request is a wall of text
     # This grabs the entire youtube url we need for the trailer url
-    index_start = re.search(r'http://www.youtube.com/watch%3Fv%3D\w+', request.text).start()
-    index_end = re.search(r'http://www.youtube.com/watch%3Fv%3D\w+', request.text).end()
+    index_start = re.search(
+        r'http://www.youtube.com/watch%3Fv%3D\w+', request.text
+        ).start()
+    index_end = re.search(
+        r'http://www.youtube.com/watch%3Fv%3D\w+', request.text
+        ).end()
 
     # Splice out the url
     trailer_url = request.text[index_start:index_end]
@@ -111,8 +117,15 @@ ex_machina = media.Movie(
     ex_machina.trailer(),
     ex_machina.cast())
 
-#list of movie objects
-movies = [twister, toy_story, avatar, transformers, ex_machina, american_sniper]
+# list of movie objects
+movies = [
+    twister,
+    toy_story,
+    avatar,
+    transformers,
+    ex_machina,
+    american_sniper
+    ]
 
 # Launch web browser with movies
 fresh_tomatoes.open_movies_page(movies)
